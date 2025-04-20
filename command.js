@@ -11,6 +11,10 @@ const commands = [
   {
     name: 'assignrole',
     description: 'Assigns a specific role to the user.',
+  },
+  {
+    name: 'verify',
+    description: 'Verify your account',
   }
 ];
 

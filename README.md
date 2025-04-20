@@ -1,2 +1,3 @@
-# DiscordBot
- My First Discord bot
+# CE-BoostUp-XIII-DiscordBot
+CE BoostUp XIII DiscordBot
+
