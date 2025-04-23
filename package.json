@@ -8,11 +8,13 @@
     "start": "node app.js",
     "command": "node command.js"
   },
+  "type" : "module",
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "discord.js": "^14.14.1",
-    "dotenv": "^16.5.0"
+    "dotenv": "^16.5.0",
+    "node-fetch": "^3.3.2"
   }
 }
