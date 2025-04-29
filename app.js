@@ -52,26 +52,35 @@ client.on('interactionCreate', async interaction => {
     const result = await SheetService.Verify(interaction.user.username);
     if(result.success)
     {
-      interaction.reply(`Found ${interaction.user}`);
+      interaction.reply(`อัญเชิญ ${interaction.user} เข้าสู่มิติ`);
     }
     else
     {
-      interaction.reply(`User Not Found`);
+      interaction.reply(`หลงทางมางั้นเรอะ \nติดต่อ <chevfy>@296498019644342282 หรือ @admin`);
     }
+  }
+  else if(commandName === 'ping')
+  {
+    console.log("Ping...");
+    const sent = await interaction.channel.send('Pinging...');
+    sent.edit(`🏓 Pong! Latency is ${sent.createdTimestamp - interaction.createdTimestamp}ms. API Latency is ${Math.round(client.ws.ping)}ms.`);
   }
 });
 
-client.on('message', message=>{
+client.on('messageCreate', async (message) => {
+  if (!message.content.startsWith(PREFIX) || message.author.bot) return;
 
-  let args = message.content.substring(PREFIX.length).split(" ")
+  let args = message.content.substring(PREFIX.length).split(" ");
 
   switch(args[0]){
       case 'Version':
           message.reply('Version 1.0.0');
-      break;
+          break;
       case 'Commands':
           message.reply(';Version ;Commands');
-      break;  
+          break;
+          
+      
   }
-})
+});
 client.login(process.env.TOKEN);

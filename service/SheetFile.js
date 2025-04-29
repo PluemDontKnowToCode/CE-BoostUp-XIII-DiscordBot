@@ -47,11 +47,9 @@ export async function ReadSheetAndSave() {
 export async function Verify(name)
 {
   const sheet = await ReadSheetAndSave();
-  console.log(`Input Name ${name}`)
-  console.log(sheet);
+  console.log(`Verify Input Name : ${name}`)
   for(let i = 0;i < sheet.length;i++)
   {
-    console.log(`Name To Check: ${sheet[i]["Name"] }`)
     if(sheet[i]["Name"] == name)
     {
       return {

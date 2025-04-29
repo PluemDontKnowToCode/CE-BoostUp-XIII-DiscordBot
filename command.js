@@ -5,17 +5,13 @@ dotenv.config();
 
 const commands = [
   {
-    name: 'number',
-    description: 'Replies with a random number!',
-  },
-  {
-    name: 'assignrole',
-    description: 'Assigns a specific role to the user.',
-  },
-  {
     name: 'verify',
     description: 'Verify your account',
-  }
+  },
+  {
+    name: 'ping',
+    description: '(ONWER ONLY) Get bot status',
+  },
 ];
 
 const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);

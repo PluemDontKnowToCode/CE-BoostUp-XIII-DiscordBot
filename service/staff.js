@@ -28,6 +28,10 @@ export function isStaff(id)
       
     } catch (err) {
       console.log("Error parsing JSON:", err);
+      return {
+        success: false,
+        message: "Something when wrong"
+      }
     }
   });
 }
