@@ -12,8 +12,8 @@ export async function ReadSheetAndSave() {
   try {
     const res = await fetch(url);
     const text = await res.text();
+    console.log(text)
     const json = JSON.parse(text.substring(47).slice(0, -2));  // Parse JSON from response
-    console.log(json);
     const col = json.table.cols;
     const colHead = [];
     for (let i = 0; i < col.length; i++) {
@@ -50,14 +50,30 @@ export async function Verify(name)
   console.log(`Verify Input Name : ${name}`)
   for(let i = 0;i < sheet.length;i++)
   {
-    if(sheet[i]["Name"] == name)
+    if(sheet[i]["Discord Username"] == name)
     {
-      return {
-        success: true
+      if(sheet[i]["หลักสูตรของน้อง"] == "วิศวกรรมคอมพิวเตอร์ (หลักสูตรภาษาไทย)")
+      {
+          const role = process.env.NongRoleID;
+          return {
+            success: true,
+            message: sheet[i]["ชื่อเล่น"],
+            role: role
+          }
+      }
+      else if(sheet[i]["หลักสูตรของน้อง"] == "วิศวกรรมคอมพิวเตอร์และความปลอดภัยไซเบอร์")
+      {
+        const role = process.env.NongCyberRoleID;
+        return {
+          success: true,
+          message: sheet[i]["ชื่อเล่น"],
+          role: role
+        }
       }
     }
   }
   return {
-    success: false
+    success: false,
+    message: "Not Found"
   }
 }
