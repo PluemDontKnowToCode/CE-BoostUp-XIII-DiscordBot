@@ -34,6 +34,7 @@ client.on("guildMemberAdd", async (member) => {
   {
     const role = member.guild.roles.cache.get(process.env.StaffRoleID);
     if (!role) return;
+    
     try {
       const newName = `P'${result.message}`
       await member.setNickname(newName)
