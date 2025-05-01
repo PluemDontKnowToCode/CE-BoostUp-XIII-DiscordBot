@@ -36,7 +36,7 @@ client.on("guildMemberAdd", async (member) => {
     if (!role) return;
 
     try {
-      const newName = `P'${result.message}`
+      const newName = `P' ${result.message}`
       await member.setNickname(newName)
       await member.roles.add(role);
       await member.user.send("**จาก Admin** \nเข้ามาแล้วอย่าลืมไปบอกบ้านที่ห้อง **บอก-role** จะได้แจก role ได้ถูก");
@@ -88,13 +88,13 @@ client.on('messageReactionAdd', async (reaction, user) => {
         const role = guild.roles.cache.get(result.role);
         if (!role) return console.error("Role not found!");
 
-        const newName = `N'${result.message}`;
+        const newName = `N' ${result.message}`;
         await member.setNickname(newName);
         await member.roles.add(role);
         await user.send(`ยืนยันตัวตนสำเร็จ \nยินดีต้อนรับน้องเข้าสู่ วิศวะคอมลาดกระบัง`);
         return;
       } else {
-        await user.send(`❌ หลงทางสินะ \nติดต่อ P'Chevy <@296498019644342282> หรือ P'Pluem<@769041827436560414>`);
+        await user.send(`❌ หลงทางสินะ \nติดต่อ P' Chevy <@296498019644342282> หรือ P' Pluem<@769041827436560414>`);
         return;
       }
     }
