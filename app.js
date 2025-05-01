@@ -46,7 +46,7 @@ client.on("guildMemberAdd", async (member) => {
   }
   else if(!result.success && result.message == "user not found")
   {
-    channel.send(`**ยินดีต้อนรับน้อง ${member.user} สู่วิศวะคอมลาดกระบัง **`); 
+    channel.send(`**ยินดีต้อนรับน้อง ${member.user} สู่วิศวะคอมลาดกระบัง**`); 
   }
   else
   {

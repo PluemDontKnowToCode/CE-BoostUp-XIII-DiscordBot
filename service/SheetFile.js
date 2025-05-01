@@ -1,14 +1,35 @@
 import fetch from 'node-fetch'; // Required if using Node < 18
 import dotenv from 'dotenv';
 import fs from 'fs';
-import { writeFile } from 'fs/promises';
+import { writeFile,readFile, stat } from 'fs/promises';
 dotenv.config();
 
+const CACHE_FILE = 'sheetData.json';
+const CACHE_TTL_MS = 5000; 
+
+async function isCacheFresh() {
+  try {
+    const stats = await stat(CACHE_FILE);
+    const age = Date.now() - stats.mtimeMs;
+    return age < CACHE_TTL_MS;
+  } catch {
+    return false;
+  }
+}
+
 export async function ReadSheetAndSave() {
+  if (await isCacheFresh()) {
+    try {
+      const content = await readFile(CACHE_FILE, 'utf8');
+      console.log("✅ Loaded data from cache");
+      return JSON.parse(content);
+    } catch (err) {
+      console.warn("⚠️ Failed to read cache, falling back to fetch:", err);
+    }
+  }
   const sheetID = process.env.SheetID;
   const sheetName = "Sheet1";
   const url = `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?tqx=out:json&sheet=${sheetName}`;
-
   try {
     const res = await fetch(url);
     const text = await res.text();
@@ -75,3 +96,5 @@ export async function Verify(name)
     message: "Not Found"
   }
 }
+
+const data = await ReadSheetAndSave();
