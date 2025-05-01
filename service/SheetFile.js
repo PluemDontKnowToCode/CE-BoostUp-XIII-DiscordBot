@@ -12,7 +12,6 @@ export async function ReadSheetAndSave() {
   try {
     const res = await fetch(url);
     const text = await res.text();
-    console.log(text)
     const json = JSON.parse(text.substring(47).slice(0, -2));  // Parse JSON from response
     const col = json.table.cols;
     const colHead = [];
