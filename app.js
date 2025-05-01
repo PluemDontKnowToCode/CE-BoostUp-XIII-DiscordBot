@@ -29,7 +29,7 @@ client.on("guildMemberAdd", async (member) => {
   
   console.log(`Check ${member.user.id}`);
   console.log(`Staff result: ${result.success}, message: ${result.message}`);
-  
+
   if(result.success)
   {
     const role = member.guild.roles.cache.get(process.env.StaffRoleID);
@@ -46,7 +46,7 @@ client.on("guildMemberAdd", async (member) => {
   }
   else if(!result.success && result.message == "user not found")
   {
-    channel.send(`**ยินดีต้อนรับน้อง ${member.user} สู่วิศวะคอมลาดกระบัง \nดินแดนมหัศจรรย์ของเหล่าผู้ใช้คุณไส**`); 
+    channel.send(`**ยินดีต้อนรับน้อง ${member.user} สู่วิศวะคอมลาดกระบัง **`); 
   }
   else
   {
@@ -75,7 +75,7 @@ client.on('messageReactionAdd', async (reaction, user) => {
       || member.roles.cache.has(process.env.NongRoleID)
       || member.roles.cache.has(process.env.NongCyberRoleID))
       {
-        console.log("Already have role");
+        console.log(`already have role`);
         return;
       }
 
