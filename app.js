@@ -46,7 +46,7 @@ client.on("guildMemberAdd", async (member) => {
   }
   else if(!result.success && result.message == "user not found")
   {
-    channel.send(`**ยินดีต้อนรับ ${member.user} สู่ Discord CE Boostup XIIณ \n อย่าลืมไปกด emoji ที่ห้อง ✅verify ด้วยนะ**`); 
+    channel.send(`**ยินดีต้อนรับ ${member.user} สู่ Discord CE Boostup XIII \nอย่าลืมไปกด emoji ที่ห้อง ✅verify ด้วยนะ**`); 
   }
   else
   {
@@ -88,10 +88,10 @@ client.on('messageReactionAdd', async (reaction, user) => {
         const newName = `N'${result.message}`;
         await member.setNickname(newName);
         await member.roles.add(role);
-        await user.send(`ยืนยันตัวตนสำเร็จ \nยินดีต้อนรับเข้าสู่วิศวะคอมลาดกระบัง`);
+        await user.send(`ยืนยันตัวตนสำเร็จ \nยินดีต้อนรับน้องเข้าสู่ วิศวะคอมลาดกระบัง`);
         return;
       } else {
-        await user.send(`❌ หลงทางสินะ \nติดต่อ P'Chefvy <@296498019644342282> หรือ P'Pluem<@769041827436560414>`);
+        await user.send(`❌ หลงทางสินะ \nติดต่อ P'Chevy <@296498019644342282> หรือ P'Pluem<@769041827436560414>`);
         return;
       }
     }
