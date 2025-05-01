@@ -20,7 +20,6 @@ export async function ReadSheetAndSave() {
     }
 
     const rows = json.table.rows;
-    console.log("Column Headers:", colHead);
 
     const data = rows.map(row => row.c.map(cell => cell?.v || ""));
     
