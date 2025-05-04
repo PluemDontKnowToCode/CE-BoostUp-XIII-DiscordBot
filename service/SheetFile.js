@@ -1,4 +1,4 @@
-import fetch from 'node-fetch';
+import fetch from 'node-fetch'; // Required if using Node < 18
 import dotenv from 'dotenv';
 import fs from 'fs';
 import { writeFile,readFile, stat } from 'fs/promises';
@@ -33,7 +33,7 @@ export async function ReadSheetAndSave() {
   try {
     const res = await fetch(url);
     const text = await res.text();
-    const json = JSON.parse(text.substring(47).slice(0, -2));
+    const json = JSON.parse(text.substring(47).slice(0, -2));  // Parse JSON from response
     const col = json.table.cols;
     const colHead = [];
     for (let i = 0; i < col.length; i++) {
@@ -44,10 +44,11 @@ export async function ReadSheetAndSave() {
 
     const data = rows.map(row => row.c.map(cell => cell?.v || ""));
     
+    // Map rows to records using column headers
     const records = data.map(row => {
       const record = {};
       for (let i = 0; i < colHead.length; i++) {
-        record[colHead[i]] = row[i];  
+        record[colHead[i]] = row[i];  // Map each row value to corresponding column header
       }
       
       return record
@@ -59,7 +60,7 @@ export async function ReadSheetAndSave() {
     return records; 
   } catch (err) {
     console.error("❌ Failed to load or save data:", err);
-    return [];  
+    return [];  // Return an empty array in case of error
   }
 }
 export async function Verify(name)
@@ -70,12 +71,6 @@ export async function Verify(name)
   {
     if(sheet[i]["Discord Username"] == name)
     {
-      if(data[i]["ยืนยันตัวยัง"] != "รายงานตัวสำเร็จ")
-        return resolve({
-          success: false,
-          message: "not verify"
-        });
-
       if(sheet[i]["หลักสูตรของน้อง"] == "วิศวกรรมคอมพิวเตอร์ (หลักสูตรภาษาไทย)")
       {
           const role = process.env.NongRoleID;
@@ -101,3 +96,5 @@ export async function Verify(name)
     message: "Not Found"
   }
 }
+
+const data = await ReadSheetAndSave();
