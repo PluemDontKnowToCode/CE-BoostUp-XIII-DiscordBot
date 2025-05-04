@@ -71,7 +71,7 @@ export async function Verify(name)
   {
     if(sheet[i]["Discord Username"] == name)
     {
-      if(data[i]["ยืนยันตัวยัง"] === "รายงานตัวสำเร็จ")
+      if(sheet[i]["ยืนยันตัวยัง"] === "รายงานตัวสำเร็จ")
       {
         if(sheet[i]["หลักสูตรของน้อง"] == "วิศวกรรมคอมพิวเตอร์ (หลักสูตรภาษาไทย)")
           {
