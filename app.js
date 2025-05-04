@@ -1,8 +1,7 @@
 import { Client, GatewayIntentBits, Partials } from 'discord.js';
 import dotenv from 'dotenv';
 import * as StaffService from './service/staff.js';
-import * as SheetService from'./service/SheetFile.js';
-
+import * as ReactionService from './service/reaction.js';
 dotenv.config();
 
 //Check Env
@@ -23,15 +22,14 @@ client.once('ready', () => {
 
 client.on("guildMemberAdd", async (member) => {
 
-  const channel = member.guild.channels.cache.get(process.env.ChannelID); 
-  const debug = member.guild.channels.cache.get(process.env.DebugID); 
+  const channel = member.guild.channels.cache.get(process.env.ChannelID);
+  const debug = member.guild.channels.cache.get(process.env.DebugID);
   const result = await StaffService.isStaff(member.user.id)
-  
+
   console.log(`Check ${member.user.id}`);
   console.log(`Staff result: ${result.success}, message: ${result.message}`);
 
-  if(result.success)
-  {
+  if (result.success) {
     const role = member.guild.roles.cache.get(process.env.StaffRoleID);
     if (!role) return;
 
@@ -41,18 +39,16 @@ client.on("guildMemberAdd", async (member) => {
       await member.roles.add(role);
       await member.user.send("**จาก Admin** \nเข้ามาแล้วอย่าลืมไปบอกบ้านที่ห้อง **บอก-role** จะได้แจก role ได้ถูก");
       await debug.send(`Role ${role.name} has been assigned to ${member.user}!`);
-      
+
     } catch (error) {
       console.error(error);
       await debug.send(`There was an error assigning the role to ${member.user}.`);
     }
   }
-  else if(!result.success && result.message == "user not found")
-  {
-    channel.send(`**ยินดีต้อนรับ ${member.user} สู่ Discord CE Boostup XIII \nอย่าลืมไปกด emoji ที่ห้อง ✅verify ด้วยนะ**`); 
+  else if (!result.success && result.message == "user not found") {
+    channel.send(`**ยินดีต้อนรับ ${member.user} สู่ Discord CE Boostup XIII \nอย่าลืมไปกด emoji ที่ห้อง ✅verify ด้วยนะ**`);
   }
-  else
-  {
+  else {
     debug.send(`**${member.user}, not Found in data**`)
   }
 });
@@ -61,68 +57,63 @@ client.on('messageReactionAdd', async (reaction, user) => {
   try {
     console.log("Reaction Detected");
 
-    // Handle partials
     if (reaction.partial) await reaction.fetch();
     if (reaction.message.partial) await reaction.message.fetch();
     if (user.bot) return;
 
-    if (
-      reaction.message.id === process.env.VERIFY_MESSAGE_ID &&
-      reaction.emoji.name === process.env.VERIFY_EMOJI
-    ) 
-    {
+    if ( reaction.message.id === process.env.VERIFY_MESSAGE_ID && reaction.emoji.name === process.env.VERIFY_EMOJI ) {
       const guild = reaction.message.guild;
       const member = await guild.members.fetch(user.id);
-      if(member.roles.cache.has(process.env.AdminRole)
-      || member.roles.cache.has(process.env.StaffRoleID)
-      || member.roles.cache.has(process.env.NongRoleID)
-      || member.roles.cache.has(process.env.NongCyberRoleID))
-      {
-        console.log(`already have role`);
-        return;
-      }
 
-      const result = await SheetService.Verify(user.username); // Assuming this checks user validity
-
-      if (result.success) {
-        const role = guild.roles.cache.get(result.role);
-        if (!role) return console.error("Role not found!");
-
-        const newName = `N' ${result.message}`;
-        await member.setNickname(newName);
-        await member.roles.add(role);
-        await user.send(`ยืนยันตัวตนสำเร็จ \nยินดีต้อนรับน้องเข้าสู่ วิศวะคอมลาดกระบัง`);
-        return;
-      } else {
-        await user.send(`❌ หลงทางสินะ \nติดต่อ P' Chevy <@296498019644342282> หรือ P' Pluem<@769041827436560414>`);
-        return;
-      }
+      await ReactionService.juniorVerify(guild, user, member);
     }
+    // else if (process.env.VERIFY_ROLE_MESSAGE_ID != "") {
+    //   await ReactionService.handleReactionAdd(reaction, user);
+    // }
   } catch (error) {
     console.error('Error in reaction handler:', error);
   }
 });
 
+client.on('messageReactionRemove', async (reaction, user) => {
+  // if (process.env.VERIFY_ROLE_MESSAGE_ID != "") {
+  //   await ReactionService.handleReactionRemove(reaction, user);
+  // }
+
+});
+
 client.on('interactionCreate', async interaction => {
+
   if (!interaction.isCommand()) return;
-  const debug = interaction.member.guild.channels.cache.get(process.env.DebugID); 
+  const debug = interaction.member.guild.channels.cache.get(process.env.DebugID);
   const { commandName } = interaction;
-  if(commandName === 'ping')
+
+  if (commandName === 'ping') {
+    if (interaction.member.roles.cache.has(process.env.AdminRole)) {
+      console.log("Ping.......");
+      const sent = await debug.send('Pinging...');
+      await interaction.reply({
+        content: `🏓 Pong! Latency is ${sent.createdTimestamp - interaction.createdTimestamp}ms. API Latency is ${Math.round(client.ws.ping)}ms.`,
+        ephemeral: true
+      });
+    }
+    else {
+      await interaction.reply({
+        content: "You dont have permission to use this command",
+        ephemeral: true
+      });
+    }
+  }
+  else if(commandName === 'secret')
   {
     if (interaction.member.roles.cache.has(process.env.AdminRole))
     {
-      console.log("Ping.......");
-      const sent = await debug.send('Pinging...');
-      await interaction.reply({ 
-        content: `🏓 Pong! Latency is ${sent.createdTimestamp - interaction.createdTimestamp}ms. API Latency is ${Math.round(client.ws.ping)}ms.`, 
-        ephemeral: true 
-      });
+      
     }
-    else
-    {
-      await interaction.reply({ 
-        content: "You dont have permission to use this command", 
-        ephemeral: true 
+    else {
+      await interaction.reply({
+        content: "You dont have permission to use this command",
+        ephemeral: true
       });
     }
   }

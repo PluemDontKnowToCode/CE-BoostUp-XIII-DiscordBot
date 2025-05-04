@@ -8,6 +8,10 @@ const commands = [
     name: 'ping',
     description: '(ONWER ONLY) Get bot status',
   },
+  {
+    name: 'secret',
+    description: '(OWNER ONLY) ???'
+  }
 ];
 
 const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
