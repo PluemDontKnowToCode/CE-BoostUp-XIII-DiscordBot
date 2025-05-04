@@ -71,30 +71,33 @@ export async function Verify(name)
   {
     if(sheet[i]["Discord Username"] == name)
     {
-      if(data[i]["ยืนยันตัวยัง"] != "รายงานตัวสำเร็จ")
-        return resolve({
-          success: false,
-          message: "not verify"
-        });
-
-      if(sheet[i]["หลักสูตรของน้อง"] == "วิศวกรรมคอมพิวเตอร์ (หลักสูตรภาษาไทย)")
+      if(data[i]["ยืนยันตัวยัง"] === "รายงานตัวสำเร็จ")
       {
-          const role = process.env.NongRoleID;
-          return {
-            success: true,
-            message: sheet[i]["ชื่อเล่น"],
-            role: role
+        if(sheet[i]["หลักสูตรของน้อง"] == "วิศวกรรมคอมพิวเตอร์ (หลักสูตรภาษาไทย)")
+          {
+              const role = process.env.NongRoleID;
+              return {
+                success: true,
+                message: sheet[i]["ชื่อเล่น"],
+                role: role
+              }
+          }
+          else if(sheet[i]["หลักสูตรของน้อง"] == "วิศวกรรมคอมพิวเตอร์และความปลอดภัยไซเบอร์")
+          {
+            const role = process.env.NongCyberRoleID;
+            return {
+              success: true,
+              message: sheet[i]["ชื่อเล่น"],
+              role: role
+            }
           }
       }
-      else if(sheet[i]["หลักสูตรของน้อง"] == "วิศวกรรมคอมพิวเตอร์และความปลอดภัยไซเบอร์")
-      {
-        const role = process.env.NongCyberRoleID;
-        return {
-          success: true,
-          message: sheet[i]["ชื่อเล่น"],
-          role: role
-        }
-      }
+      return resolve({
+        success: false,
+        message: "not verify"
+      });
+
+      
     }
   }
   return {
