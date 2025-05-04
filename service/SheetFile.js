@@ -92,10 +92,10 @@ export async function Verify(name)
             }
           }
       }
-      return resolve({
+      return {
         success: false,
         message: "not verify"
-      });
+      };
 
       
     }
