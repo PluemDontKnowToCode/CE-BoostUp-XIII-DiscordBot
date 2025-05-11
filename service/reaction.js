@@ -2,7 +2,7 @@ import fs from 'fs';
 import dotenv from 'dotenv'
 
 import * as SheetService from './SheetFile.js';
-const ROLE_CONFIG_FILE = 'reactionRoles.json';
+const ROLE_CONFIG_FILE = 'BaanRole.json';
 
 dotenv.config();
 
@@ -62,6 +62,7 @@ async function processReaction(reaction, user, action) {
 
 export async function juniorVerify(guild, user, member) {
     try {
+        const debug = member.guild.channels.cache.get(process.env.DebugID);
         if (
             member.roles.cache.has(process.env.AdminRole) ||
             member.roles.cache.has(process.env.StaffRoleID) ||
@@ -83,19 +84,23 @@ export async function juniorVerify(guild, user, member) {
             await member.roles.add(role);
 
             await user.send(`✅ ยืนยันตัวตนสำเร็จ \nยินดีต้อนรับน้องเข้าสู่ วิศวะคอมลาดกระบัง`);
+            await debug.send(`${user} ยืนยันตัวตนสำเร็จ`);
         } 
         else if(result.success == false && result.message == "not verify")
         {
-            await user.send("เจ้าเป็นใคร");
+            await user.send("### ข้อมูลของน้องไม่ถูกต้อง\nติดต่อ P' Cat <@443831721247375360> หรือ P' Pluem <@769041827436560414>");
+            await debug.send(`${user} ข้อมูลไม่ถูกต้อง`);
         }
         else {
-            await user.send(`❌ หลงทางสินะ \nติดต่อ P' Chevy <@296498019644342282> หรือ P' Pluem <@769041827436560414>`);
+            await user.send(`❌ หลงทางสินะ \nติดต่อ P' Cat <@443831721247375360> หรือ P' Pluem <@769041827436560414>`);
+            await debug.send(`${user} หลงทาง`);
         }
 
     } catch (err) {
         console.error("❌ Error in verification process:", err);
         try {
-            await user.send("เกิดข้อผิดพลาดในการยืนยันตัวตน กรุณาติดต่อแอดมิน");
+            await user.send("เกิดข้อผิดพลาดในการยืนยันตัวตน กรุณาติดต่อแอดมิน\nติดต่อ P' Chevy <@296498019644342282> หรือ P' Pluem <@769041827436560414>");
+            await debug.send(`${user} เกิดข้อผิดพลาดในการยืนยันตัวตน`);
         } catch (dmErr) {
             console.error("❌ Couldn't send DM to user:", dmErr);
         }

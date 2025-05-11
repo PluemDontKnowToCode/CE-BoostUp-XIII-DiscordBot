@@ -90,12 +90,8 @@ client.on('interactionCreate', async interaction => {
 
   if (commandName === 'ping') {
     if (interaction.member.roles.cache.has(process.env.AdminRole)) {
-      console.log("Ping.......");
       const sent = await debug.send('Pinging...');
-      await interaction.reply({
-        content: `🏓 Pong! Latency is ${sent.createdTimestamp - interaction.createdTimestamp}ms. API Latency is ${Math.round(client.ws.ping)}ms.`,
-        ephemeral: true
-      });
+      await interaction.reply(`🏓 Pong! Latency is ${sent.createdTimestamp - interaction.createdTimestamp}ms. API Latency is ${Math.round(client.ws.ping)}ms.`);
     }
     else {
       await interaction.reply({
