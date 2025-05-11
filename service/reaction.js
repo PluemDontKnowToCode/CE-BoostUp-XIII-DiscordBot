@@ -62,7 +62,7 @@ async function processReaction(reaction, user, action) {
 
 export async function juniorVerify(guild, user, member) {
     try {
-        const debug = member.guild.channels.cache.get(process.env.DebugID);
+        const debug = guild.channels.cache.get(process.env.DebugID);
         if (
             member.roles.cache.has(process.env.AdminRole) ||
             member.roles.cache.has(process.env.StaffRoleID) ||
