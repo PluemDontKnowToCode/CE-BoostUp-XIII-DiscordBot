@@ -28,7 +28,8 @@ client.on("guildMemberAdd", async (member) => {
 
   console.log(`Check ${member.user.id}`);
   console.log(`Staff result: ${result.success}, message: ${result.message}`);
-
+  await debug.send(`${member.user} Just Join!`);
+  
   if (result.success) {
     const role = member.guild.roles.cache.get(process.env.StaffRoleID);
     if (!role) return;
@@ -45,11 +46,8 @@ client.on("guildMemberAdd", async (member) => {
       await debug.send(`There was an error assigning the role to ${member.user}.`);
     }
   }
-  else if (!result.success && result.message == "user not found") {
-    channel.send(`**ยินดีต้อนรับ ${member.user} สู่ Discord CE Boostup XIII \nอย่าลืมไปกด emoji ที่ห้อง ✅verify ด้วยนะ**`);
-  }
   else {
-    debug.send(`**${member.user}, not Found in data**`)
+    channel.send(`**ยินดีต้อนรับ ${member.user} สู่ Discord CE Boostup XIII \nอย่าลืมไปกด emoji ที่ห้อง ✅verify ด้วยนะ**`);
   }
 });
 
