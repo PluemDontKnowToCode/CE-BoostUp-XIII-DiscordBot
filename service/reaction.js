@@ -88,18 +88,18 @@ export async function juniorVerify(guild, user, member) {
         } 
         else if(result.success == false && result.message == "not verify")
         {
-            await user.send("### ข้อมูลของน้องไม่ถูกต้อง\nติดต่อ P' Cat <@443831721247375360> หรือ P' Pluem <@769041827436560414>");
+            await user.send("### ข้อมูลของน้องไม่ถูกต้อง\nติดต่อพี่ๆ ได้ที่ห้อง ✅แจ้งปัญหา\nทางพี่ๆจะติดต่อกลับไปทาง direct message");
             await debug.send(`${user} ข้อมูลไม่ถูกต้อง`);
         }
         else {
-            await user.send(`❌ หลงทางสินะ \nติดต่อ P' Cat <@443831721247375360> หรือ P' Pluem <@769041827436560414>`);
+            await user.send(`❌ หลงทางสินะ \nติดต่อพี่ๆ ได้ที่ห้อง ✅แจ้งปัญหา\nทางพี่ๆจะติดต่อกลับไปทาง direct message`);
             await debug.send(`${user} หลงทาง`);
         }
 
     } catch (err) {
         console.error("❌ Error in verification process:", err);
         try {
-            await user.send("เกิดข้อผิดพลาดในการยืนยันตัวตน กรุณาติดต่อแอดมิน\nติดต่อ P' Chevy <@296498019644342282> หรือ P' Pluem <@769041827436560414>");
+            await user.send("เกิดข้อผิดพลาดในการยืนยันตัวตน กรุณาติดต่อแอดมิน\nติดต่อพี่ๆ ได้ที่ห้อง ✅แจ้งปัญหา\nทางพี่ๆจะติดต่อกลับไปทาง direct message");
             await debug.send(`${user} เกิดข้อผิดพลาดในการยืนยันตัวตน`);
         } catch (dmErr) {
             console.error("❌ Couldn't send DM to user:", dmErr);
