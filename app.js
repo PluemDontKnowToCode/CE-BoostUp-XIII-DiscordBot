@@ -65,7 +65,7 @@ client.on('messageReactionAdd', async (reaction, user) => {
 
       await ReactionService.juniorVerify(guild, user, member);
     }
-    else if (process.env.VERIFY_ROLE_MESSAGE_ID != "") {
+    else if (process.env.VERIFY_ROLE_MESSAGE_ID === reaction.message.id ) {
       await ReactionService.handleReactionAdd(reaction, user);
     }
   } catch (error) {
@@ -74,7 +74,7 @@ client.on('messageReactionAdd', async (reaction, user) => {
 });
 
 client.on('messageReactionRemove', async (reaction, user) => {
-  if (process.env.VERIFY_ROLE_MESSAGE_ID != "") {
+  if (process.env.VERIFY_ROLE_MESSAGE_ID === reaction.message.id) {
     await ReactionService.handleReactionRemove(reaction, user);
   }
 
