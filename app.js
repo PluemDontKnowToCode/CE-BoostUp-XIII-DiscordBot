@@ -65,18 +65,18 @@ client.on('messageReactionAdd', async (reaction, user) => {
 
       await ReactionService.juniorVerify(guild, user, member);
     }
-    // else if (process.env.VERIFY_ROLE_MESSAGE_ID != "") {
-    //   await ReactionService.handleReactionAdd(reaction, user);
-    // }
+    else if (process.env.VERIFY_ROLE_MESSAGE_ID != "") {
+      await ReactionService.handleReactionAdd(reaction, user);
+    }
   } catch (error) {
     console.error('Error in reaction handler:', error);
   }
 });
 
 client.on('messageReactionRemove', async (reaction, user) => {
-  // if (process.env.VERIFY_ROLE_MESSAGE_ID != "") {
-  //   await ReactionService.handleReactionRemove(reaction, user);
-  // }
+  if (process.env.VERIFY_ROLE_MESSAGE_ID != "") {
+    await ReactionService.handleReactionRemove(reaction, user);
+  }
 
 });
 
