@@ -38,7 +38,7 @@ client.on("guildMemberAdd", async (member) => {
       const newName = `P' ${result.message}`
       await member.setNickname(newName)
       await member.roles.add(role);
-      await member.user.send("**จาก Admin** \nเข้ามาแล้วอย่าลืมไปบอกบ้านที่ห้อง **บอก-role** จะได้แจก role ได้ถูก");
+      await member.user.send("**จาก Admin** \nเข้ามาแล้วอย่าลืมไปกดรับบ้านที่ห้อง **บอก-role**\nถ้ากด emoji ผิด กดซ้ำอีกรอบ\nได้โปรดอย่าเกรียน🙏🙏🙏");
       await debug.send(`Role ${role.name} has been assigned to ${member.user}!`);
 
     } catch (error) {
