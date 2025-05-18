@@ -20,13 +20,12 @@ export async function handleReactionRemove(reaction, user) {
 
 async function processReaction(reaction, user, action) {
     try {
-        const debug = member.guild.channels.cache.get(process.env.DebugID);
         let roleMappings = [];
         try {
             const file = fs.readFileSync(ROLE_CONFIG_FILE, 'utf8');
             roleMappings = JSON.parse(file);
         } catch (err) {
-            await debug.send("❌ Failed to load reactionRoles.json:", err);
+            console.log("❌ Failed to load reactionRoles.json:", err);
             return;
         }
         const emoji = reaction.emoji.name;
@@ -39,7 +38,7 @@ async function processReaction(reaction, user, action) {
         const role = guild.roles.cache.get(mapping.role_id);
 
         if (!role) {
-            await debug.send(`⚠️ Role not found for ID: ${mapping.role_id}`);
+            console.log(`⚠️ Role not found for ID: ${mapping.role_id}`);
             return;
         }
 
