@@ -92,7 +92,7 @@ export async function juniorVerify(guild, user, member) {
             await debug.send(`${user} ข้อมูลไม่ถูกต้อง`);
         }
         else {
-            await user.send(`❌ หลงทางสินะ \nติดต่อพี่ๆ ได้ที่ห้อง ✅แจ้งปัญหา\nทางพี่ๆจะติดต่อกลับไปทาง direct message`);
+            await user.send(`❌ หลงทางสินะ \nน้องอาจยังไม่ได้กรอกฟอร์มสมัครค่าย CE-Boostup 13 \nหรือชื่อ discord ที่น้องกรอกในฟอร์มอาจไม่ตรงกับ discord ที่น้องใช้อยู่\nติดต่อพี่ๆ ได้ที่ห้อง ✅แจ้งปัญหา\nทางพี่ๆจะติดต่อกลับไปทาง direct message`);
             await debug.send(`${user} หลงทาง`);
         }
 
