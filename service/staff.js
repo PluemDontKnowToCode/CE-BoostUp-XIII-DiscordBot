@@ -76,5 +76,3 @@ export function isOthers(id) {
     });
   });
 }
-const result = await isOthers("342902481245700099")
-console.log(result.message)
