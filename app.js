@@ -50,7 +50,7 @@ client.on("guildMemberAdd", async (member) => {
   }
 
   //verify CE senior
-  const othersResult = await isOthers(id)
+  const othersResult = await StaffService.isOthers(id)
   if(othersResult.success)
   {
     const role = member.guild.roles.cache.get(process.env.OthersRoleID);
