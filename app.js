@@ -3,8 +3,9 @@ import dotenv from 'dotenv';
 import * as StaffService from './service/staff.js';
 import * as ReactionService from './service/reaction.js';
 dotenv.config();
-
+//For those who come after
 //Check Env
+
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,

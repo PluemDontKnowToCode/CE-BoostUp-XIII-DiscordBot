@@ -29,7 +29,7 @@ export async function ReadSheetAndSave() {
     }
   }
   const sheetID = process.env.SheetID;
-  const sheetName = "Sheet1";
+  const sheetName = "Register1";
   const url = `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?tqx=out:json&sheet=${sheetName}`;
   try {
     const res = await fetch(url);
