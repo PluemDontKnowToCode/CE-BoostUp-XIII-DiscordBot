@@ -25,12 +25,12 @@ client.on("guildMemberAdd", async (member) => {
 
   const channel = member.guild.channels.cache.get(process.env.ChannelID);
   const debug = member.guild.channels.cache.get(process.env.DebugID);
-  const result = await StaffService.isStaff(member.user.id)
-
-  console.log(`Check ${member.user.id}`);
-  console.log(`Staff result: ${result.success}, message: ${result.message}`);
-  await debug.send(`${member.user} Just Join!`);
   
+
+  await debug.send(`${member.user} Just Join!`);
+
+  //Verify CE63
+  const result = await StaffService.isStaff(member.user.id)
   if (result.success) {
     const role = member.guild.roles.cache.get(process.env.StaffRoleID);
     if (!role) return;
@@ -41,15 +41,32 @@ client.on("guildMemberAdd", async (member) => {
       await member.roles.add(role);
       await member.user.send("**จาก Admin** \nเข้ามาแล้วอย่าลืมไปกดรับบ้านที่ห้อง **บอก-role**\nถ้ากด emoji ผิด กดซ้ำอีกรอบ\nได้โปรดอย่าเกรียน🙏🙏🙏");
       await debug.send(`Role ${role.name} has been assigned to ${member.user}!`);
-
+      return;
     } catch (error) {
       console.error(error);
       await debug.send(`There was an error assigning the role to ${member.user}.`);
+      return;
     }
   }
-  else {
-    channel.send(`**ยินดีต้อนรับ ${member.user} สู่ Discord CE Boostup XIII \nอย่าลืมไปกด emoji ที่ห้อง ✅verify ด้วยนะ**`);
+
+  //verify CE senior
+  const othersResult = await isOthers(id)
+  if(othersResult.success)
+  {
+    const role = member.guild.roles.cache.get(process.env.OthersRoleID);
+    try {
+      await member.roles.add(role);
+      await debug.send(`Role ${role.name} has been assigned to ${member.user}!`);
+      return;
+    } catch (error) {
+      console.error(error);
+      await debug.send(`There was an error assigning the role to ${member.user}.`);
+      return;
+    }
   }
+  channel.send(`**ยินดีต้อนรับ ${member.user} สู่ Discord CE Boostup XIII \nอย่าลืมไปกด emoji ที่ห้อง ✅verify ด้วยนะ**`);
+  return;
+  
 });
 
 client.on('messageReactionAdd', async (reaction, user) => {
