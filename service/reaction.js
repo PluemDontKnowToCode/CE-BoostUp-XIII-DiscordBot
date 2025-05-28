@@ -67,7 +67,8 @@ export async function juniorVerify(guild, user, member) {
             member.roles.cache.has(process.env.AdminRole) ||
             member.roles.cache.has(process.env.StaffRoleID) ||
             member.roles.cache.has(process.env.NongRoleID) ||
-            member.roles.cache.has(process.env.NongCyberRoleID)
+            member.roles.cache.has(process.env.NongCyberRoleID) || 
+            member.roles.cache.has(process.env.OthersRoleID)
         ) {
             console.log("✅ User already has a verified role.");
             return;
