@@ -7,6 +7,7 @@ dotenv.config();
 
 const CACHE_FILE = 'sheetData.json';
 const CACHE_TTL_MS = 5000;
+const ROLE_CONFIG_FILE = 'BaanRole.json';
 
 async function isCacheFresh() {
   try {
