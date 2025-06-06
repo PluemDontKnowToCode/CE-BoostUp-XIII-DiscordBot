@@ -61,8 +61,9 @@ async function processReaction(reaction, user, action) {
 }
 
 export async function juniorVerify(guild, user, member) {
+    
+    const debug = guild.channels.cache.get(process.env.DebugID);
     try {
-        const debug = guild.channels.cache.get(process.env.DebugID);
         if (
             member.roles.cache.has(process.env.AdminRole) ||
             member.roles.cache.has(process.env.StaffRoleID) ||
@@ -77,6 +78,14 @@ export async function juniorVerify(guild, user, member) {
         const result = await SheetService.Verify(user.username);
 
         if (result.success) {
+            let roleMappings = [];
+            try {
+                const file = fs.readFileSync(ROLE_CONFIG_FILE, 'utf8');
+                roleMappings = JSON.parse(file);
+            } catch (err) {
+                console.log("❌ Failed to load reactionRoles.json:", err);
+                return;
+            }
             const role = guild.roles.cache.get(result.role);
             if (!role) return console.error("❌ Role not found for verified user.");
 

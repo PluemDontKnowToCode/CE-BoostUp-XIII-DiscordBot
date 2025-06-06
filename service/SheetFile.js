@@ -1,4 +1,3 @@
-
 import fetch from 'node-fetch';
 import dotenv from 'dotenv';
 import fs from 'fs';
@@ -66,7 +65,6 @@ export async function ReadSheetAndSave() {
 }
 export async function Verify(name) {
   const sheet = await ReadSheetAndSave();
-  console.log(`Verify Input Name : ${name}`)
   for (let i = 0; i < sheet.length; i++) {
     if (sheet[i]["Discord Username"] == name) {
       if (sheet[i]["ยืนยันตัวยัง"] === "" || sheet[i]["ยืนยันตัวยัง"] == "1") {
@@ -118,7 +116,6 @@ export async function AddTeam(guild) {
       return;
     }
     await guild.members.fetch();
-    console.log("Start Add Role");
     for (let i = 0; i < sheet.length; i++) 
     {
       try
