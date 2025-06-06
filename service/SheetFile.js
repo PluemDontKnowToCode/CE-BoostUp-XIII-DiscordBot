@@ -35,6 +35,7 @@ export async function ReadSheetAndSave() {
   try {
     const res = await fetch(url);
     const text = await res.text();
+    console.log(text)
     const json = JSON.parse(text.substring(47).slice(0, -2));
     const col = json.table.cols;
     const colHead = [];
@@ -69,7 +70,7 @@ export async function Verify(name) {
   console.log(`Verify Input Name : ${name}`)
   for (let i = 0; i < sheet.length; i++) {
     if (sheet[i]["Discord Username"] == name) {
-      if (sheet[i]["ยืนยันตัวยัง"] === "รายงานตัวสำเร็จ" || sheet[i]["ยืนยันตัวยัง"] === "1") {
+      if (sheet[i]["ยืนยันตัวยัง"] === "" || sheet[i]["ยืนยันตัวยัง"] == "1") {
         if (sheet[i]["หลักสูตรของน้อง"] == "วิศวกรรมคอมพิวเตอร์ (หลักสูตรภาษาไทย)") {
           const role = process.env.NongRoleID;
           return {
@@ -122,13 +123,10 @@ export async function AddBaan(guild) {
           m => m.user.username === sheet[i]["Discord Username"]
         );
         if(!member) continue;
-        console.log("Found User");
 
         const mapping = roleMappings.find(entry => entry.role_name === sheet[i]["บ้าน"]);
-        console.log(mapping.role_name);
         if (!mapping) continue;
 
-        
         if (
             member.roles.cache.has(process.env.NongRoleID) ||
             member.roles.cache.has(process.env.NongCyberRoleID)
