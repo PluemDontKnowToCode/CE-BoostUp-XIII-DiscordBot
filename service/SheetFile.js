@@ -66,7 +66,7 @@ export async function ReadSheetAndSave() {
 export async function Verify(name) {
   const sheet = await ReadSheetAndSave();
   for (let i = 0; i < sheet.length; i++) {
-    if (sheet[i]["Discord Username"] == name) {
+    if (sheet[i]["Discord Username"] == name.toLowerCase()) {
       // if (sheet[i]["ยืนยันตัวยัง"] === "" || sheet[i]["ยืนยันตัวยัง"] == "1") {
         
         const team = (sheet[i]["บ้าน"] != "#N/A" && sheet[i]["บ้าน"] != "") ? sheet[i]["บ้าน"] : "None"
@@ -89,7 +89,7 @@ export async function Verify(name) {
             team: team
           }
         }
-      }
+      // }
       // return {
       //   success: false,
       //   message: "not verify"
