@@ -142,6 +142,7 @@ export async function AddBaan(guild) {
       }
       catch(err)
       {
+        console.error(`❌ Error in Add Baan handler:`, err);
         continue;
       }
     }
