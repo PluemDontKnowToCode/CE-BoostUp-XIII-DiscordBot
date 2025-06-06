@@ -117,7 +117,7 @@ export async function AddBaan(guild) {
     {
       try
       {
-        console.log(sheet[i]["บ้าน"]);
+        console.log(`บ้าน: ${sheet[i]["บ้าน"]} Name: ${sheet[i]["Discord Username"]}`);
         const mapping = roleMappings.find(entry => entry.role_name === sheet[i]["บ้าน"]);
         if (!mapping) continue;
 
