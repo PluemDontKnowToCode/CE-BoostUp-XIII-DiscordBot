@@ -112,6 +112,7 @@ export async function AddBaan(guild) {
       console.log("❌ Failed to load reactionRoles.json:", err);
       return;
     }
+    await guild.members.fetch();
     console.log("Start Add Role");
     for (let i = 0; i < sheet.length; i++) 
     {
