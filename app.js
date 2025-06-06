@@ -2,6 +2,7 @@ import { Client, GatewayIntentBits, Partials } from 'discord.js';
 import dotenv from 'dotenv';
 import * as StaffService from './service/staff.js';
 import * as ReactionService from './service/reaction.js';
+import * as SheetService from './service/SheetFile.js';
 dotenv.config();
 //For those who come after
 //Check Env
@@ -121,7 +122,7 @@ client.on('interactionCreate', async interaction => {
     if (interaction.member.roles.cache.has(process.env.AdminRole))
     {
       const guild = interaction.member.guild;
-      await AddBaan(guild);
+      await SheetService.AddBaan(guild);
     }
     else {
       await interaction.reply({
