@@ -117,15 +117,17 @@ export async function AddBaan(guild) {
     {
       try
       {
-        console.log(`บ้าน: ${sheet[i]["บ้าน"]} Name: ${sheet[i]["Discord Username"]}`);
-        const mapping = roleMappings.find(entry => entry.role_name === sheet[i]["บ้าน"]);
-        if (!mapping) continue;
-
         const member = guild.members.cache.find(
           m => m.user.username === sheet[i]["Discord Username"]
         );
         if(!member) continue;
         console.log("Found User");
+
+        const mapping = roleMappings.find(entry => entry.role_name === sheet[i]["บ้าน"]);
+        console.log(mapping.role_name);
+        if (!mapping) continue;
+
+        
         if (
             member.roles.cache.has(process.env.NongRoleID) ||
             member.roles.cache.has(process.env.NongCyberRoleID)
