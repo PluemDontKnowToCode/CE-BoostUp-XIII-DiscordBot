@@ -2,7 +2,7 @@ import fs from 'fs';
 import dotenv from 'dotenv'
 
 import * as SheetService from './SheetFile.js';
-const ROLE_CONFIG_FILE = 'BaanRole.json';
+const ROLE_CONFIG_FILE = 'TeamRole.json';
 
 dotenv.config();
 
@@ -83,7 +83,20 @@ export async function juniorVerify(guild, user, member) {
             const newName = `N' ${result.message}`;
             await member.setNickname(newName);
             await member.roles.add(role);
-
+            const mapping = roleMappings.find(entry => entry.role_name === result.team);
+            
+            const team = guild.roles.cache.get(mapping.role_id);
+            try
+            {
+                if(team)
+                {
+                    await member.roles.add(team);
+                }
+            }
+            catch(error)
+            {
+                console.log("✅ User already has a Team role.");
+            }
             await user.send(`✅ ยืนยันตัวตนสำเร็จ \nยินดีต้อนรับน้องเข้าสู่ วิศวะคอมลาดกระบัง`);
             await debug.send(`${user} ยืนยันตัวตนสำเร็จ`);
         } 

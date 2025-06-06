@@ -122,7 +122,7 @@ client.on('interactionCreate', async interaction => {
     if (interaction.member.roles.cache.has(process.env.AdminRole))
     {
       const guild = interaction.member.guild;
-      await SheetService.AddBaan(guild);
+      await SheetService.AddTeam(guild);
       await interaction.reply(`Add role Success`);
     }
     else {

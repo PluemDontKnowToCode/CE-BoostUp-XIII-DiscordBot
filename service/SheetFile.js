@@ -7,7 +7,7 @@ dotenv.config();
 
 const CACHE_FILE = 'sheetData.json';
 const CACHE_TTL_MS = 5000;
-const ROLE_CONFIG_FILE = 'BaanRole.json';
+const ROLE_CONFIG_FILE = 'TeamRole.json';
 
 async function isCacheFresh() {
   try {
@@ -71,12 +71,16 @@ export async function Verify(name) {
   for (let i = 0; i < sheet.length; i++) {
     if (sheet[i]["Discord Username"] == name) {
       if (sheet[i]["ยืนยันตัวยัง"] === "" || sheet[i]["ยืนยันตัวยัง"] == "1") {
+        
+        const team = (sheet[i]["บ้าน"] != "#N/A" && sheet[i]["บ้าน"] != "") ? sheet[i]["บ้าน"] : "None"
         if (sheet[i]["หลักสูตรของน้อง"] == "วิศวกรรมคอมพิวเตอร์ (หลักสูตรภาษาไทย)") {
+
           const role = process.env.NongRoleID;
           return {
             success: true,
             message: sheet[i]["ชื่อเล่น"],
-            role: role
+            role: role,
+            team: team
           }
         }
         else if (sheet[i]["หลักสูตรของน้อง"] == "วิศวกรรมคอมพิวเตอร์และความปลอดภัยไซเบอร์") {
@@ -84,7 +88,8 @@ export async function Verify(name) {
           return {
             success: true,
             message: sheet[i]["ชื่อเล่น"],
-            role: role
+            role: role,
+            team: team
           }
         }
       }
@@ -101,7 +106,7 @@ export async function Verify(name) {
     message: "Not Found"
   }
 }
-export async function AddBaan(guild) {
+export async function AddTeam(guild) {
   try
   {
     const sheet = await ReadSheetAndSave();
@@ -141,13 +146,13 @@ export async function AddBaan(guild) {
       }
       catch(err)
       {
-        console.error(`❌ Error in Add Baan handler:`, err);
+        console.error(`❌ Error in Add Team handler:`, err);
         continue;
       }
     }
   }
   catch(err)
   {
-    console.error(`❌ Error in Add Baan handler:`, err);
+    console.error(`❌ Error in Add Team handler:`, err);
   }
 }
