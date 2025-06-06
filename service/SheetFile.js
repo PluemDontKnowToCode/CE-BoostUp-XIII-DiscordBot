@@ -112,6 +112,7 @@ export async function AddBaan(guild) {
       console.log("❌ Failed to load reactionRoles.json:", err);
       return;
     }
+    console.log("Start Add Role");
     for (let i = 0; i < sheet.length; i++) 
     {
       try
@@ -123,6 +124,7 @@ export async function AddBaan(guild) {
           m => m.user.username === sheet[i]["Discord Username"]
         );
         if(!member) continue;
+        console.log("Found User");
         if (
             member.roles.cache.has(process.env.NongRoleID) ||
             member.roles.cache.has(process.env.NongCyberRoleID)

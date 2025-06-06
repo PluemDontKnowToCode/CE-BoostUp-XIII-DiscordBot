@@ -123,6 +123,7 @@ client.on('interactionCreate', async interaction => {
     {
       const guild = interaction.member.guild;
       await SheetService.AddBaan(guild);
+      await interaction.reply(`Add role Success`);
     }
     else {
       await interaction.reply({
