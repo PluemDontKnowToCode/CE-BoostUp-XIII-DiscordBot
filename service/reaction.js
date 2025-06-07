@@ -100,6 +100,14 @@ export async function juniorVerify(guild, user, member) {
                 if(team)
                 {
                     await member.roles.add(team);
+                    try
+                    {
+                        await debug.send(`${team} has been assign to ${user}`);
+                    }
+                    catch(error)
+                    {
+                        console.log("Can not send debug: ",error);
+                    }
                 }
             }
             catch(error)
