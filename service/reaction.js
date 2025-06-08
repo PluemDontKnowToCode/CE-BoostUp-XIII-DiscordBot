@@ -92,27 +92,30 @@ export async function juniorVerify(guild, user, member) {
             const newName = `N' ${result.message}`;
             await member.setNickname(newName);
             await member.roles.add(role);
-            const mapping = roleMappings.find(entry => entry.role_name === result.team);
-            
-            const team = guild.roles.cache.get(mapping.role_id);
-            try
+            if(result.team != "None")
             {
-                if(team)
+                const mapping = roleMappings.find(entry => entry.role_name === result.team);
+                
+                const team = guild.roles.cache.get(mapping.role_id);
+                try
                 {
-                    await member.roles.add(team);
-                    try
+                    if(team)
                     {
-                        await debug.send(`${team} has been assign to ${user}`);
-                    }
-                    catch(error)
-                    {
-                        console.log("Can not send debug: ",error);
+                        await member.roles.add(team);
+                        try
+                        {
+                            await debug.send(`${team} has been assign to ${user}`);
+                        }
+                        catch(error)
+                        {
+                            console.log("Can not send debug: ",error);
+                        }
                     }
                 }
-            }
-            catch(error)
-            {
-                console.log("✅ User already has a Team role.");
+                catch(error)
+                {
+                    console.log("✅ User already has a Team role.");
+                }
             }
             await user.send(`✅ ยืนยันตัวตนสำเร็จ \nยินดีต้อนรับน้องเข้าสู่ วิศวะคอมลาดกระบัง`);
             await debug.send(`${user} ยืนยันตัวตนสำเร็จ`);
@@ -130,7 +133,7 @@ export async function juniorVerify(guild, user, member) {
     } catch (err) {
         console.error("❌ Error in verification process:", err);
         try {
-            await user.send("เกิดข้อผิดพลาดในการยืนยันตัวตน กรุณาติดต่อแอดมิน\nติดต่อพี่ๆ ได้ที่ห้อง ✅แจ้งปัญหา\nทางพี่ๆจะติดต่อกลับไปทาง direct message");
+            await user.send("เกิดข้อผิดพลาดในการยืนยันตัวตน \nติดต่อพี่ๆ ได้ที่ห้อง ✅แจ้งปัญหา\nทางพี่ๆจะติดต่อกลับไปทาง direct message");
             await debug.send(`${user} เกิดข้อผิดพลาดในการยืนยันตัวตน`);
         } catch (dmErr) {
             console.error("❌ Couldn't send DM to user:", dmErr);
