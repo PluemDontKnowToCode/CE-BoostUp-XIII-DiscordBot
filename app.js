@@ -72,8 +72,6 @@ client.on("guildMemberAdd", async (member) => {
 
 client.on('messageReactionAdd', async (reaction, user) => {
   try {
-    console.log("Reaction Detected");
-
     if (reaction.partial) await reaction.fetch();
     if (reaction.message.partial) await reaction.message.fetch();
     if (user.bot) return;

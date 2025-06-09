@@ -95,7 +95,8 @@ export async function juniorVerify(guild, user, member) {
             if(result.team != "None")
             {
                 const mapping = roleMappings.find(entry => entry.role_name === result.team);
-                
+                if(!mapping)
+                    return;
                 const team = guild.roles.cache.get(mapping.role_id);
                 try
                 {

@@ -152,3 +152,4 @@ export async function AddTeam(guild) {
     console.error(`❌ Error in Add Team handler:`, err);
   }
 }
+//await ReadSheetAndSave();
