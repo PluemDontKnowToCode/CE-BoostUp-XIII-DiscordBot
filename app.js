@@ -49,24 +49,16 @@ client.on("guildMemberAdd", async (member) => {
       return;
     }
   }
-
-  //verify CE senior
-  const othersResult = await StaffService.isOthers(member.user.id)
-  if(othersResult.success)
-  {
-    const role = member.guild.roles.cache.get(process.env.OthersRoleID);
-    try {
-      await member.roles.add(role);
-      await debug.send(`Role ${role.name} has been assigned to ${member.user}!`);
-      return;
-    } catch (error) {
-      console.error(error);
-      await debug.send(`There was an error assigning the role to ${member.user}.`);
-      return;
-    }
+  const role = member.guild.roles.cache.get(process.env.OthersRoleID);
+  try {
+    await member.roles.add(role);
+    await debug.send(`Role ${role.name} has been assigned to ${member.user}!`);
+    return;
+  } catch (error) {
+    console.error(error);
+    await debug.send(`There was an error assigning the role to ${member.user}.`);
+    return;
   }
-  channel.send(`**ยินดีต้อนรับ ${member.user} สู่ Discord CE Boostup XIII \nอย่าลืมไปกด emoji ที่ห้อง ✅verify ด้วยนะ**`);
-  return;
   
 });
 
